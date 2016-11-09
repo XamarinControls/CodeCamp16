@@ -1,0 +1,2 @@
+﻿[assembly: Xamarin.Forms.Dependency(typeof(CodeCamp2016.iOS.Alerts.AlertMessages))]
+[assembly: Xamarin.Forms.Dependency(typeof(CodeCamp2016.iOS.Rest.RestCoreClient))]

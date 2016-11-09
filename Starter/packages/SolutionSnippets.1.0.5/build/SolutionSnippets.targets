@@ -1,0 +1,71 @@
+﻿<Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003" InitialTargets="ReDeploySnippets">
+
+  <PropertyGroup Condition="$(VisualStudioVersion) == ''">
+    <VisualstudioLocation>$(registry:HKEY_CURRENT_USER\Software\Microsoft\VisualStudio\9.0@VisualStudioLocation)</VisualstudioLocation>
+    <RelativeSnippetLocation>$(registry:HKEY_CURRENT_USER\Software\Microsoft\VisualStudio\9.0_Config\Languages\CodeExpansions\CSharp\Paths@Microsoft Visual CSharp)</RelativeSnippetLocation>
+
+    <TargetSnippetLocation/>
+  </PropertyGroup>
+
+  <PropertyGroup Condition="$(VisualStudioVersion) == '10.0'">
+    <VisualstudioLocation>$(registry:HKEY_CURRENT_USER\Software\Microsoft\VisualStudio\10.0@VisualStudioLocation)</VisualstudioLocation>
+    <RelativeSnippetLocation>$(registry:HKEY_CURRENT_USER\Software\Microsoft\VisualStudio\10.0_Config\Languages\CodeExpansions\CSharp\Paths@Microsoft Visual CSharp)</RelativeSnippetLocation>
+
+    <TargetSnippetLocation/>
+  </PropertyGroup>
+
+  <PropertyGroup Condition="$(VisualStudioVersion) == '11.0'">
+    <VisualstudioLocation>$(registry:HKEY_CURRENT_USER\Software\Microsoft\VisualStudio\11.0@VisualStudioLocation)</VisualstudioLocation>
+    <RelativeSnippetLocation>$(registry:HKEY_CURRENT_USER\Software\Microsoft\VisualStudio\11.0_Config\Languages\CodeExpansions\CSharp\Paths@Microsoft Visual CSharp)</RelativeSnippetLocation>
+
+    <TargetSnippetLocation/>
+  </PropertyGroup>
+
+  <PropertyGroup Condition="$(VisualStudioVersion) == '12.0'">
+    <VisualstudioLocation>$(registry:HKEY_CURRENT_USER\Software\Microsoft\VisualStudio\12.0@VisualStudioLocation)</VisualstudioLocation>
+    <RelativeSnippetLocation>$(registry:HKEY_CURRENT_USER\Software\Microsoft\VisualStudio\12.0_Config\Languages\CodeExpansions\CSharp\Paths@Microsoft Visual CSharp)</RelativeSnippetLocation>
+
+    <TargetSnippetLocation/>
+  </PropertyGroup>
+
+  <PropertyGroup Condition="$(VisualStudioVersion) == '14.0'">
+    <VisualstudioLocation>$(registry:HKEY_CURRENT_USER\Software\Microsoft\VisualStudio\14.0@VisualStudioLocation)</VisualstudioLocation>
+    <RelativeSnippetLocation>$(registry:HKEY_CURRENT_USER\Software\Microsoft\VisualStudio\14.0_Config\Languages\CodeExpansions\CSharp\Paths@Microsoft Visual CSharp)</RelativeSnippetLocation>
+
+    <TargetSnippetLocation/>
+  </PropertyGroup>
+  
+  <UsingTask  TaskName="ResolveSnippetDirectory" AssemblyFile="Blue.Utils.SolutionSnippets.dll" Condition="$(VisualstudioLocation) != ''">
+  </UsingTask>
+
+  <ItemGroup>
+    <Snippets Include="$(SolutionDir)**\*.snippet" Exclude="$(SolutionDir)packages\**\*.snippet" />
+  </ItemGroup>
+
+  <Target Name="ReDeploySnippets">
+    <CallTarget Targets="CleanSnippets"   ContinueOnError="true" UseResultsCache="true"/>
+    <CallTarget Targets="DeploySnippets"  ContinueOnError="true" UseResultsCache="true"/>
+  </Target>
+
+
+  <Target Name="CleanSnippets">
+    <ResolveSnippetDirectory VisualstudioLocation="$(VisualstudioLocation)" RelativeSnippetLocation="$(RelativeSnippetLocation)">
+      <Output TaskParameter="SnippetDirectory" PropertyName="TargetSnippetLocation" />
+    </ResolveSnippetDirectory>
+
+    <ItemGroup>
+      <RemoveSnippets Include="$(TargetSnippetLocation)\**\*.snippet"></RemoveSnippets>
+    </ItemGroup>
+
+    <Delete Files="@(RemoveSnippets)"/>
+    <MakeDir Directories="$(TargetSnippetLocation)" />
+  </Target>
+
+  <Target Name="DeploySnippets">
+    <ResolveSnippetDirectory VisualstudioLocation="$(VisualstudioLocation)" RelativeSnippetLocation="$(RelativeSnippetLocation)">
+      <Output TaskParameter="SnippetDirectory" PropertyName="TargetSnippetLocation" />
+    </ResolveSnippetDirectory>
+    <Copy DestinationFolder="$(TargetSnippetLocation)\$(SolutionName)\%(RecursiveDir)" SourceFiles="@(Snippets)" />
+  </Target>
+
+</Project>

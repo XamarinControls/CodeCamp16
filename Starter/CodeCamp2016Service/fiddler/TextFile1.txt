@@ -1,0 +1,24 @@
+﻿http://192.168.202.6/CodeCamp2016Service/api/Login/Register  [PUT]
+
+User-Agent: Fiddler
+Authorization: Basic bWNjb3JtYTphNXVhNnI=
+Host: 192.168.202.6
+Content-Type: application/json
+Content-Length: 30
+
+{
+   "EmailAddress" : null
+}
+
+http://192.168.202.6/CodeCamp2016Service/api/Login  [GET]
+
+User-Agent: Fiddler
+Authorization: Basic dXNlcjpwYXNzd29yZA==
+Host: 192.168.202.6
+Content-Length: 0
+
+http://192.168.202.6/CodeCamp2016Service/api/Items/ForSale  [GET]
+
+User-Agent: Fiddler
+Host: 192.168.202.6
+Content-Length: 0

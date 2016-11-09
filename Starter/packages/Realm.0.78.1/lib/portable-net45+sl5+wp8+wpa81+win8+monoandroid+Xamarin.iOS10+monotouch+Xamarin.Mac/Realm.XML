@@ -1,0 +1,792 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>Realm</name>
+    </assembly>
+    <members>
+        <member name="T:Realms.Transaction">
+             <summary>
+             Provides a scope to safely read and write to a Realm. Must use explicitly via Realm.BeginWrite.
+             </summary>
+             <remarks>
+             All access to a Realm occurs within a Transaction. Read transactions are created implicitly.
+             </remarks>
+            </member>
+        <member name="M:Realms.Transaction.Dispose">
+             <summary>
+             Will automatically <c>Rollback</c> the transaction on existing scope, if not explicitly Committed.
+             </summary>
+            </member>
+        <member name="M:Realms.Transaction.Rollback">
+             <summary>
+             Use explicitly to undo the changes in a transaction, otherwise it is automatically invoked by exiting the block.
+             </summary>
+            </member>
+        <member name="M:Realms.Transaction.Commit">
+             <summary>
+             Use to save the changes to the realm. If transaction is declared in a <c>using</c> block, must be used before the end of that block.
+             </summary>
+            </member>
+        <member name="T:Realms.RealmList`1">
+             <summary>
+             Return type for a managed object property when you declare a to-many relationship with IList. 
+             </summary>
+             <remarks>Relationships are ordered and preserve their order, hence the ability to use ordinal 
+             indexes in calls such as Insert and RemoveAt.
+             </remarks>
+             <remarks>Although originally used in declarations, whilst that still compiles, 
+             it is <b>not</b> recommended as the IList approach both supports standalone objects and is 
+             implemented with a faster binding.
+             </remarks>
+             
+             <typeparam name="T">Type of the RealmObject which is the target of the relationship.</typeparam>
+            </member>
+        <member name="F:Realms.RealmList`1.ITEM_NOT_FOUND">
+             <summary>
+             Value returned by IndexOf if an item is not found.
+             </summary>
+            </member>
+        <member name="P:Realms.RealmList`1.Count">
+             <summary>
+             Returns the count of related items.
+             </summary>
+             <returns>0 if there are no related items, including a "null" relationship never established, or the count of items.</returns>
+            </member>
+        <member name="P:Realms.RealmList`1.IsReadOnly">
+             <summary>
+             Standard <a href="https://msdn.microsoft.com/en-us/library/system.collections.ilist.aspx">IList</a> property.
+             </summary>
+             <value><c>false</c> at all times.</value>
+            </member>
+        <member name="P:Realms.RealmList`1.IsFixedSize">
+             <summary>
+             Standard <a href="https://msdn.microsoft.com/en-us/library/system.collections.ilist.aspx">IList</a> property.
+             </summary>
+             <value><c>false</c> at all times as the set of related objects may be changed.</value>
+            </member>
+        <member name="P:Realms.RealmList`1.IsSynchronized">
+             <summary>
+             Standard <a href="https://msdn.microsoft.com/en-us/library/system.collections.ilist.aspx">IList</a> property.
+             </summary>
+             <value><c>true</c> at all times.</value>
+            </member>
+        <member name="P:Realms.RealmList`1.Item(System.Int32)">
+             <summary>
+             Returns the item at the ordinal index.
+             </summary>
+             <param name="index">Ordinal zero-based index of the related items.</param>
+             <typeparam name="T">Type of the RealmObject which is the target of the relationship.</typeparam>
+             <returns>A related item, if exception not thrown.</returns>
+             <exception cref="T:System.ArgumentOutOfRangeException">When the index is out of range for the related items.</exception>
+            </member>
+        <member name="M:Realms.RealmList`1.Add(`0)">
+             <summary>
+             Makes a relationship to an item, appending it at the end of the sorted relationship.
+             </summary>
+             <param name="item">RealmObject being added to the relationship.</param>
+             <typeparam name="T">Type of the RealmObject which is the target of the relationship.</typeparam>
+            </member>
+        <member name="M:Realms.RealmList`1.Clear">
+             <summary>
+             Breaks the relationship to all related items, without deleting the items.
+             </summary>
+            </member>
+        <member name="M:Realms.RealmList`1.Contains(`0)">
+             <summary>
+             Tests if an item exists in the related set.
+             </summary>
+             <param name="item">Object to be searched for in the related items.</param>
+             <typeparam name="T">Type of the RealmObject which is the target of the relationship.</typeparam>
+             <returns>True if found, false if not found.</returns>
+            </member>
+        <member name="M:Realms.RealmList`1.CopyTo(`0[],System.Int32)">
+             <summary>
+             Copies all the elements to a portion of an array.
+             </summary>
+             <param name="array">Preallocated destination into which we copy.</param>
+             <param name="arrayIndex">Ordinal zero-based starting index of the <b>destination</b> of the related items being copied.</param>
+             <exception cref="T:System.ArgumentNullException">Thrown if array is null.</exception>
+             <exception cref="T:System.ArgumentOutOfRangeException">Thrown if arrayIndex is less than 0.</exception>
+             <exception cref="T:System.ArgumentException">Thrown if there is not enough room in array from arrayIndex onward.</exception>
+            </member>
+        <!--FIXME: Invalid documentation markup was found for member M:Realms.RealmList`1.GetEnumerator-->
+        <member name="M:Realms.RealmList`1.IndexOf(`0)">
+             <summary>
+             Finds an ordinal index for an item in a relationship.
+             </summary>
+             <param name="item">RealmObject being removed from the relationship.</param>
+             <typeparam name="T">Type of the RealmObject which is the target of the relationship.</typeparam>
+             <returns>0-based index if the item was found in the related set, or RealmList.ITEM_NOT_FOUND.</returns>
+            </member>
+        <member name="M:Realms.RealmList`1.Insert(System.Int32,`0)">
+             <summary>
+             Makes a relationship to an item, inserting at a specified location ahead of whatever else was in that location.
+             </summary>
+             <param name="index">Ordinal zero-based index at which to insert the related items.</param>
+             <param name="item">RealmObject being inserted into the relationship.</param>
+             <typeparam name="T">Type of the RealmObject which is the target of the relationship.</typeparam>
+             <exception cref="T:System.ArgumentOutOfRangeException">When the index is out of range for the related items.</exception>
+            </member>
+        <member name="M:Realms.RealmList`1.Remove(`0)">
+             <summary>
+             Breaks the relationship to the specified item, without deleting the item.
+             </summary>
+             <param name="item">RealmObject being removed from the relationship.</param>
+             <typeparam name="T">Type of the RealmObject which is the target of the relationship.</typeparam>
+             <returns>True if the item was found and removed, false if it is not in the related set.</returns>
+            </member>
+        <member name="M:Realms.RealmList`1.RemoveAt(System.Int32)">
+             <summary>
+             Breaks the relationship to the item at the ordinal index, without deleting the item.
+             </summary>
+             <param name="index">Ordinal zero-based index of the related item.</param>
+             <exception cref="T:System.ArgumentOutOfRangeException">When the index is out of range for the related items.</exception>
+            </member>
+        <member name="T:Realms.RealmConfiguration">
+             <summary>
+             Realm configuration specifying settings that affect your Realm behaviour.
+             </summary>
+             <remarks>
+             Main role is generating a canonical path from whatever absolute, relative subdir or just filename user supplies.
+             </remarks>
+            </member>
+        <member name="P:Realms.RealmConfiguration.DefaultRealmName">
+             <summary>
+             Standard filename to be combined with the platform-specific document directory.
+             </summary>
+             <value>A string representing a filename only, no path.</value>      
+            </member>
+        <member name="F:Realms.RealmConfiguration.ShouldDeleteIfMigrationNeeded">
+             <summary>
+             Flag mainly to help with temp databases and testing, indicates content can be abandoned when you change the schema.
+             </summary>
+            </member>
+        <member name="F:Realms.RealmConfiguration.ReadOnly">
+             <summary>
+             Flag to indicate Realm is opened readonly so can open from locked locations such as bundled with an application.
+             </summary>
+            </member>
+        <member name="P:Realms.RealmConfiguration.DatabasePath">
+             <summary>
+             The full path of any realms opened with this configuration, may be overriden by passing in a separate name.
+             </summary>
+            </member>
+        <member name="P:Realms.RealmConfiguration.ObjectClasses">
+             <summary>
+             The list of classes persisted in a Realm opened with this configuration.
+             </summary>
+             <remarks>Specify classes by type. Searched linearly so order in decreasing frequency of creating objects.</remarks>
+             <example>eg: `config.ObjectClasses = new Type[] { typeof(CommonClass), typeof(RareClass) };`</example>
+             <value>Typically left null so by default all RealmObjects will be able to be stored in all realms.</value>
+            </member>
+        <member name="P:Realms.RealmConfiguration.EncryptionKey">
+             <summary>
+             Specify the key used to encrypt the entire Realm. Once set, must be specified each time file is used.
+             </summary>
+             <value>Full 64byte (512bit) key for AES-256 encryption.</value>
+            </member>
+        <member name="P:Realms.RealmConfiguration.SchemaVersion">
+             <summary>
+             Configuration you can override which is used when you create a new Realm without specifying a configuration.
+             </summary>
+             Number indicating the version, can be used to arbitrarily distinguish between schemas even if they have the same objects and properties.
+             <value>0-based value initially set to indicate user is not versioning.</value>
+            </member>
+        <member name="M:Realms.RealmConfiguration.PathToRealm(System.String)">
+             <summary>
+             Utility to build a path in which a realm will be created so can consistently use filenames and relative paths.
+             </summary>
+             <param name="optionalPath">Path to the realm, must be a valid full path for the current platform, relative subdir, or just filename.</param>
+             <returns>A full path including name of Realm file.</returns>
+            </member>
+        <!--FIXME: Invalid documentation markup was found for member P:Realms.RealmConfiguration.DefaultConfiguration-->
+        <member name="M:Realms.RealmConfiguration.#ctor(System.String,System.Boolean)">
+             <summary>
+             Constructor allowing path override.
+             </summary>
+             <param name="optionalPath">Path to the realm, must be a valid full path for the current platform, relative subdir, or just filename.</param>
+             <param name="shouldDeleteIfMigrationNeeded">Optional Flag mainly to help with temp databases and testing, indicates content can be abandoned when you change the schema.</param> 
+            </member>
+        <member name="M:Realms.RealmConfiguration.ConfigWithPath(System.String)">
+             <summary>
+             Clone method allowing you to override or customise the current path.
+             </summary>
+             <returns>An object with a fully-specified, canonical path.</returns>
+             <param name="newConfigPath">Path to the realm, must be a valid full path for the current platform, relative subdir, or just filename.</param>
+            </member>
+        <member name="M:Realms.RealmConfiguration.Equals(System.Object)">
+             <summary>
+             Generic override determines whether the specified <see cref="T:System.Object" /> is equal to the current RealmConfiguration.
+             </summary>
+             <param name="rhs">The <see cref="T:System.Object" /> to compare with the current RealmConfiguration.</param>
+             <returns><c>true</c> if the specified <see cref="T:System.Object" /> is equal to the current
+             <see cref="T:Realms.RealmConfiguration" />; otherwise, <c>false</c>.</returns>
+            </member>
+        <member name="M:Realms.RealmConfiguration.Equals(Realms.RealmConfiguration)">
+             <summary>
+             Determines whether the specified RealmConfiguration is equal to the current RealmConfiguration.
+             </summary>
+             <param name="rhs">The <see cref="T:System.Object" /> to compare with the current RealmConfiguration.</param>
+             <returns><c>true</c> if the specified <see cref="T:System.Object" /> is equal to the current
+             <see cref="T:Realms.RealmConfiguration" />; otherwise, <c>false</c>.</returns>
+            </member>
+        <member name="M:Realms.RealmConfiguration.GetHashCode">
+             <summary>
+             Serves as a hash function for a RealmConfiguration based on its path.
+             </summary>
+             <returns>A hash code for this instance that is suitable for use in hashing algorithms and data structures such as a
+             hash table.</returns>
+            </member>
+        <member name="T:Realms.RealmObject">
+             <summary>
+             Base for any object that can be persisted in a Realm.
+             </summary>
+            </member>
+        <member name="P:Realms.RealmObject.IsManaged">
+             <summary>
+             Allows you to check if the object has been associated with a Realm, either at creation or via Realm.Manage.
+             </summary>
+            </member>
+        <member name="P:Realms.RealmObject.IsValid">
+             <summary>
+             Returns true if this object is managed and represents a row in the database.
+             If a managed object has been removed from the Realm, it is no longer valid and accessing properties on it
+             will throw an exception.
+             Unmanaged objects are always considered valid.
+             </summary>
+            </member>
+        <member name="M:Realms.RealmObject.Equals(System.Object)">
+             <summary>
+             Compare objects with identity query for persistent objects.
+             </summary>
+             <remarks>Persisted RealmObjects map their properties directly to the realm with no caching so multiple instances of a given object always refer to the same store.</remarks>
+             <param name="obj">Object being compared against to see if is the same C# object or maps to the same managed object in Realm.</param>
+             <returns>True when objects are the same memory object or refer to the same persisted object.</returns>
+            </member>
+        <member name="T:Realms.Realm">
+             <summary>
+             A Realm instance (also referred to as a realm) represents a Realm database.
+             </summary>
+             <remarks>Warning: Realm instances are not thread safe and can not be shared across threads 
+             You must call GetInstance on each thread in which you want to interact with the realm. 
+             </remarks>
+            </member>
+        <member name="P:Realms.Realm.Config">
+             <summary>
+             Configuration that controls the Realm path and other settings.
+             </summary>
+            </member>
+        <member name="P:Realms.Realm.Schema">
+             <summary>
+             The <see cref="T:Realms.RealmSchema" /> instance that describes all the types that can be stored in this <see cref="T:Realms.Realm" />.
+             </summary>
+            </member>
+        <member name="M:Realms.Realm.GetInstance(System.String)">
+             <summary>
+             Factory for a Realm instance for this thread.
+             </summary>
+             <param name="databasePath">Path to the realm, must be a valid full path for the current platform, relative subdir, or just filename.</param>
+             <remarks>If you specify a relative path, sandboxing by the OS may cause failure if you specify anything other than a subdirectory. <br />
+             Instances are cached for a given absolute path and thread, so you may get back the same instance.
+             </remarks>
+             <returns>A realm instance, possibly from cache.</returns>
+             <exception cref="T:Realms.RealmFileAccessErrorException">Throws error if the filesystem has an error preventing file creation.</exception>
+            </member>
+        <member name="M:Realms.Realm.GetInstance(Realms.RealmConfiguration)">
+             <summary>
+             Factory for a Realm instance for this thread.
+             </summary>
+             <param name="config">Optional configuration.</param>
+             <returns>A realm instance.</returns>
+             <exception cref="T:Realms.RealmFileAccessErrorException">Throws error if the filesystem has an error preventing file creation.</exception>
+            </member>
+        <member name="T:Realms.Realm.RealmChangedEventHandler">
+             <summary>
+             Handler type used by <see cref="E:Realms.Realm.RealmChanged" /> 
+             </summary>
+             <param name="sender">The Realm which has changed.</param>
+             <param name="e">Currently an empty argument, in future may indicate more details about the change.</param>
+            </member>
+        <member name="E:Realms.Realm.RealmChanged">
+             <summary>
+             Triggered when a realm has changed (i.e. a transaction was committed)
+             </summary>
+            </member>
+        <member name="P:Realms.Realm.IsClosed">
+             <summary>
+             Checks if database has been closed.
+             </summary>
+             <returns>True if closed.</returns>
+            </member>
+        <member name="M:Realms.Realm.Close">
+             <summary>
+              Closes the Realm if not already closed. Safe to call repeatedly.
+             </summary>
+            </member>
+        <member name="M:Realms.Realm.Dispose">
+             <summary>
+              Dispose automatically closes the Realm if not already closed.
+             </summary>
+            </member>
+        <member name="M:Realms.Realm.Equals(System.Object)">
+             <summary>
+             Generic override determines whether the specified <see cref="T:System.Object" /> is equal to the current Realm.
+             </summary>
+             <param name="rhs">The <see cref="T:System.Object" /> to compare with the current Realm.</param>
+             <returns><c>true</c> if the Realms are functionally equal.</returns>
+            </member>
+        <member name="M:Realms.Realm.Equals(Realms.Realm)">
+             <summary>
+             Determines whether the specified Realm is equal to the current Realm.
+             </summary>
+             <param name="rhs">The Realm to compare with the current Realm.</param>
+             <returns><c>true</c> if the Realms are functionally equal.</returns>
+            </member>
+        <member name="M:Realms.Realm.IsSameInstance(Realms.Realm)">
+             <summary>
+             Determines whether this instance is the same core instance as the specified rhs.
+             </summary>
+             <remarks>
+             You can, and should, have multiple instances open on different threads which have the same path and open the same Realm.
+             </remarks>
+             <returns><c>true</c> if this instance is the same core instance the specified rhs; otherwise, <c>false</c>.</returns>
+             <param name="rhs">The Realm to compare with the current Realm.</param>
+            </member>
+        <member name="M:Realms.Realm.GetHashCode">
+             <summary>
+             Serves as a hash function for a Realm based on the core instance.
+             </summary>
+             <returns>A hash code for this instance that is suitable for use in hashing algorithms and data structures such as a
+             hash table.</returns>
+            </member>
+        <member name="M:Realms.Realm.DeleteRealm(Realms.RealmConfiguration)">
+             <summary>
+              Deletes all the files associated with a realm. Hides knowledge of the auxiliary filenames from the programmer.
+             </summary>
+             <param name="configuration">A configuration which supplies the realm path.</param>
+            </member>
+        <member name="M:Realms.Realm.CreateObject``1">
+             <summary>
+             Factory for a managed object in a realm. Only valid within a Write transaction.
+             </summary>
+             <remarks>Using CreateObject is more efficient than creating standalone objects, assigning their values, then using Manage because it avoids copying properties to the realm.</remarks>
+             <typeparam name="T">The Type T must be a RealmObject.</typeparam>
+             <returns>An object which is already managed.</returns>
+             <exception cref="T:Realms.RealmOutsideTransactionException">If you invoke this when there is no write Transaction active on the realm.</exception>
+            </member>
+        <member name="M:Realms.Realm.CreateObject(System.String)">
+             <summary>
+             Factory for a managed object in a realm. Only valid within a Write transaction.
+             </summary>
+             <returns>A dynamically-accessed Realm object.</returns>
+             <param name="className">The type of object to create as defined in the schema.</param>
+             <remarks>
+             If the realm instance has been created from an untyped schema (such as when migrating from an older version of a realm) the returned object will be purely dynamic.
+             If the realm has been created from a typed schema as is the default case when calling <code>Realm.GetInstance()</code> the returned object will be an instance of a user-defined class, as if created by <code>Realm.CreateObject&lt;T&gt;()</code>.
+             </remarks>
+            </member>
+        <member name="M:Realms.Realm.Manage``1(``0)">
+             <summary>
+             This realm will start managing a RealmObject which has been created as a standalone object.
+             </summary>
+             <typeparam name="T">The Type T must be a RealmObject.</typeparam>
+             <param name="obj">Must be a standalone object, null not allowed.</param>
+             <exception cref="T:Realms.RealmOutsideTransactionException">If you invoke this when there is no write Transaction active on the realm.</exception>
+             <exception cref="T:Realms.RealmObjectAlreadyManagedByRealmException">You can't manage the same object twice. This exception is thrown, rather than silently detecting the mistake, to help you debug your code</exception>
+             <exception cref="T:Realms.RealmObjectManagedByAnotherRealmException">You can't manage an object with more than one realm</exception>
+            </member>
+        <!--FIXME: Invalid documentation markup was found for member M:Realms.Realm.BeginWrite-->
+        <!--FIXME: Invalid documentation markup was found for member M:Realms.Realm.Write(System.Action)-->
+        <member name="M:Realms.Realm.WriteAsync(System.Action{Realms.Realm})">
+             <summary>
+             Execute an action inside a temporary transaction on a worker thread. If no exception is thrown, the transaction will automatically
+             be committed.
+             </summary>
+             <remarks>
+             Opens a new instance of this realm on a worker thread and executes <c>action</c> inside a write transaction.
+             Realms and realm objects are thread-affine, so capturing any such objects in the <c>action</c> delegate will lead to errors
+             if they're used on the worker thread.
+             </remarks>
+             <example>
+             await realm.WriteAsync(tempRealm =&gt; 
+             {
+                 var pongo = tempRealm.All&lt;Dog&gt;().Single(d =&gt; d.Name == "Pongo");
+                 var missis = tempRealm.All&lt;Dog&gt;().Single(d =&gt; d.Name == "Missis");
+                 for (var i = 0; i &lt; 15; i++)
+                 {
+                     var pup = tempRealm.CreateObject&lt;Dog&gt;();
+                     pup.Breed = "Dalmatian";
+                     pup.Mum = missis;
+                     pup.Dad = pongo;
+                 }
+             });
+             </example>
+             <param name="action">Action to perform inside a transaction, creating, updating or removing objects.</param>
+             <returns>A standard <c>Task</c> so it can be used by <c>await</c>.</returns>
+            </member>
+        <member name="M:Realms.Realm.Refresh">
+             <summary>
+             Update a Realm and outstanding objects to point to the most recent data for this Realm.
+             </summary>
+             <returns>
+             Whether the realm had any updates. Note that this may return true even if no data has actually changed.
+             </returns>
+            </member>
+        <member name="M:Realms.Realm.All``1">
+             <summary>
+             Extract an iterable set of objects for direct use or further query.
+             </summary>
+             <typeparam name="T">The Type T must be a RealmObject.</typeparam>
+             <returns>A RealmResults that without further filtering, allows iterating all objects of class T, in this realm.</returns>
+            </member>
+        <member name="M:Realms.Realm.All(System.String)">
+             <summary>
+             Get a view of all the objects of a particular type
+             </summary>
+             <param name="className">The type of the objects as defined in the schema.</param>
+             <remarks>Because the objects inside the view are accessed dynamically, the view cannot be queried into using LINQ or other expression predicates.</remarks>
+             <returns>A RealmResults that without further filtering, allows iterating all objects of className, in this realm.</returns>
+            </member>
+        <member name="M:Realms.Realm.ObjectForPrimaryKey``1(System.Int64)">
+             <summary>
+             Fast lookup of an object from a class which has a PrimaryKey property.
+             </summary>
+             <typeparam name="T">The Type T must be a RealmObject.</typeparam>
+             <param name="id">Id to be matched exactly, same as an == search. Int64 argument works for all integer properties supported as PrimaryKey.</param>
+             <returns>Null or an object matching the id.</returns>
+             <exception cref="T:Realms.RealmClassLacksPrimaryKeyException">If the RealmObject class T lacks an [PrimaryKey].</exception>
+            </member>
+        <member name="M:Realms.Realm.ObjectForPrimaryKey``1(System.String)">
+             <summary>
+             Fast lookup of an object from a class which has a PrimaryKey property.
+             </summary>
+             <typeparam name="T">The Type T must be a RealmObject.</typeparam>
+             <param name="id">Id to be matched exactly, same as an == search.</param>
+             <returns>Null or an object matdhing the id.</returns>
+             <exception cref="T:Realms.RealmClassLacksPrimaryKeyException">If the RealmObject class T lacks an [PrimaryKey].</exception>
+            </member>
+        <member name="M:Realms.Realm.ObjectForPrimaryKey(System.String,System.Int64)">
+             <summary>
+             Fast lookup of an object for dynamic use, from a class which has a PrimaryKey property.
+             </summary>
+             <param name="className">Name of class in dynamic situation.</param>
+             <param name="id">Id to be matched exactly, same as an == search.</param>
+             <returns>Null or an object matdhing the id.</returns>
+             <exception cref="T:Realms.RealmClassLacksPrimaryKeyException">If the RealmObject class lacks an [PrimaryKey].</exception>
+            </member>
+        <member name="M:Realms.Realm.ObjectForPrimaryKey(System.String,System.String)">
+             <summary>
+             Fast lookup of an object for dynamic use, from a class which has a PrimaryKey property.
+             </summary>
+             <param name="className">Name of class in dynamic situation.</param>
+             <param name="id">Id to be matched exactly, same as an == search.</param>
+             <returns>Null or an object matdhing the id.</returns>
+             <exception cref="T:Realms.RealmClassLacksPrimaryKeyException">If the RealmObject class lacks an [PrimaryKey].</exception>
+            </member>
+        <member name="M:Realms.Realm.Remove(Realms.RealmObject)">
+             <summary>
+             Removes a persistent object from this realm, effectively deleting it.
+             </summary>
+             <param name="obj">Must be an object persisted in this realm.</param>
+             <exception cref="T:Realms.RealmOutsideTransactionException">If you invoke this when there is no write Transaction active on the realm.</exception>
+             <exception cref="T:System.ArgumentNullException">If you invoke this with a standalone object.</exception>
+            </member>
+        <member name="M:Realms.Realm.RemoveRange``1(Realms.RealmResults{``0})">
+             <summary>
+             Remove objects matcing a query from the realm.
+             </summary>
+             <typeparam name="T">Type of the objects to remove.</typeparam>
+             <param name="range">The query to match for.</param>
+            </member>
+        <member name="M:Realms.Realm.RemoveAll``1">
+             <summary>
+             Remove all objects of a type from the realm.
+             </summary>
+             <typeparam name="T">Type of the objects to remove.</typeparam>
+            </member>
+        <member name="M:Realms.Realm.RemoveAll(System.String)">
+             <summary>
+             Remove all objects of a type from the realm.
+             </summary>
+             <param name="className">Type of the objects to remove as defined in the schema.</param>
+            </member>
+        <member name="M:Realms.Realm.RemoveAll">
+             <summary>
+             Remove all objects of all types managed by this realm.
+             </summary>
+            </member>
+        <member name="T:Realms.RealmException">
+             <summary>
+             Base for Realm specific exceptions. Use only for catching.
+             </summary>
+            </member>
+        <member name="T:Realms.RealmExceptionCodes">
+             <summary>Codes used in forwarding exceptions from the native C++ core, to be regenerated in C#.</summary>
+             <remarks> <b>Warning:</b> Keep these codes aligned with realm_error_type.hpp in wrappers.</remarks>
+            </member>
+        <member name="T:Realms.RealmFileAccessErrorException">
+            <summary>
+             Base for catching exceptions with Realm files, typically problems from which an app would recover.</summary>
+            <remarks>
+            You can catch any of the subclasses independently but any File-level 
+            error which could be handled by an application descends from these.
+            </remarks>
+            </member>
+        <member name="T:Realms.RealmFileExistsException">
+             <summary>
+             Exception thrown when a file exists with the same name as you to create a new one.
+             </summary>
+            </member>
+        <member name="T:Realms.RealmFileNotFoundException">
+             <summary>
+             Exception thrown when a file doesn't exist when trying to open without a create option.
+             </summary>
+            </member>
+        <member name="T:Realms.RealmInvalidDatabaseException">
+             <summary>
+             Exception thrown when a file exists but doesn't appear to be a Realm database, may indicate corruption.
+             </summary>
+            </member>
+        <member name="T:Realms.RealmMigrationNeededException">
+             <summary>
+             Exception when you can't open an existing realm file because the format differs from your current class declarations.
+             </summary>
+             <remarks>
+             Typically triggered when you open the same Realm name, or use GetInstance() with no name, 
+             and don't delete old files. <a href="https://realm.io/docs/xamarin/latest/#migrations">Read more at Migrations.</a>
+             </remarks>
+            </member>
+        <member name="T:Realms.RealmObjectAlreadyManagedByRealmException">
+             <summary>
+             Exception thrown when you're trying to use Manage but the object has already been added to this Realm.
+             </summary>
+            </member>
+        <member name="T:Realms.RealmObjectManagedByAnotherRealmException">
+             <summary>
+             Exception thrown when you're trying to use Manage but the object is already managed by a different Realm.
+             </summary>
+            </member>
+        <member name="T:Realms.RealmOutOfMemoryException">
+             <summary>
+             Exception when Realm's run out of memory, shut down your application rather than trying to continue.
+             </summary>
+            </member>
+        <member name="T:Realms.RealmOutsideTransactionException">
+             <summary>
+             Exception when you try to Add, update or Remove a persisted object without a write transaction active.
+             </summary>
+            </member>
+        <member name="T:Realms.RealmPermissionDeniedException">
+             <summary>
+             Exception when you can't open an existing realm file, or create a new one.
+             </summary>
+             <remarks>
+             May be seen in testing if you have crashed a unit test but an external test runner is still going.
+             </remarks>
+            </member>
+        <member name="T:Realms.RealmResults`1">
+             <summary>
+             Iterable collection of one kind of RealmObject resulting from Realm.All or from a LINQ query expression.
+             </summary>
+             <typeparam name="T">Type of the RealmObject which is being returned.</typeparam>
+            </member>
+        <member name="T:Realms.RealmResults`1.ChangeSet">
+             <summary>
+             A <see cref="T:Realms.RealmResults{`0}.ChangeSet" /> describes the changes inside a <see cref="T:Realms.RealmResults`1" /> since the last time the notification callback was invoked.
+             </summary>
+            </member>
+        <member name="F:Realms.RealmResults`1.ChangeSet.InsertedIndices">
+             <summary>
+             The indices in the new version of the <see cref="T:Realms.RealmResults`1" /> which were newly inserted.
+             </summary>
+            </member>
+        <member name="F:Realms.RealmResults`1.ChangeSet.ModifiedIndices">
+             <summary>
+             The indices in the new version of the <see cref="T:Realms.RealmResults`1" /> which were modified. This means that the property of an object at that index was modified
+             or the property of another object it's related to.
+             </summary>
+            </member>
+        <member name="F:Realms.RealmResults`1.ChangeSet.DeletedIndices">
+             <summary>
+             The indices of objects in the previous version of the <see cref="T:Realms.RealmResults`1" /> which have been removed from this one.
+             </summary>
+            </member>
+        <member name="T:Realms.RealmResults`1.NotificationCallback">
+             <summary>
+             A callback that will be invoked each time the contents of a <see cref="T:Realms.RealmResults`1" /> have changed.
+             </summary>
+             <param name="sender">The <see cref="T:Realms.RealmResults`1" /> being monitored for changes.</param>
+             <param name="changes">The <see cref="T:Realms.RealmResults{`0}.ChangeSet" /> describing the changes to a <see cref="T:Realms.RealmResults`1" />, or <c>null</c> if an error occured.</param>
+             <param name="error">An exception that might have occured while asynchronously monitoring a <see cref="T:Realms.RealmResults`1" /> for changes, or <c>null</c> if no errors occured.</param>
+            </member>
+        <member name="M:Realms.RealmResults`1.GetEnumerator">
+             <summary>
+             Standard method from interface IEnumerable allows the RealmResults to be used in a <c>foreach</c>.
+             </summary>
+             <returns>An IEnumerator which will iterate through found Realm persistent objects.</returns>
+            </member>
+        <member name="M:Realms.RealmResults`1.Count">
+             <summary>
+             Count all objects if created by <see cref="M:Realms.Realm.All(System.String)" /> of the parameterised type, faster than a search.
+             </summary>
+             <remarks>
+             Resolves to this method instead of the static extension <c>Count&lt;T&gt;(this IEnumerable&lt;T&gt;)</c>.
+             </remarks>
+            </member>
+        <member name="M:Realms.RealmResults`1.SubscribeForNotifications(Realms.RealmResults{`0}.NotificationCallback)">
+             <summary>
+             Register a callback to be invoked each time this <see cref="T:Realms.RealmResults`1" /> changes.
+             </summary>
+             <remarks>
+             <para>
+             The callback will be asynchronously invoked with the initial <see cref="T:Realms.RealmResults`1" />, and then called again after each write transaction 
+             which changes either any of the objects in the collection, or which objects are in the collection.
+             The <c>changes</c> parameter will be <c>null</c> the first time the callback is invoked with the initial results.
+             For each call after that, it will contain information about which rows in the results were added, removed or modified.
+             </para>
+             <para>
+             If a write transaction did not modify any objects in this <see cref="T:Realms.RealmResults`1" />, the callback is not invoked at all.
+             If an error occurs the callback will be invoked with <c>null</c> for the <c>sender</c> parameter and a non-<c>null</c> <c>error</c>.
+             Currently the only errors that can occur are when opening the <see cref="T:Realms.Realm" /> on the background worker thread.
+             </para>
+             <para>
+             At the time when the block is called, the <see cref="T:Realms.RealmResults`1" /> object will be fully evaluated and up-to-date, and as long as you do not perform a write transaction on the same thread
+             or explicitly call <see cref="M:Realms.Realm.Refresh" />, accessing it will never perform blocking work.
+             </para>
+             <para>
+             Notifications are delivered via the standard event loop, and so can't be delivered while the event loop is blocked by other activity.
+             When notifications can't be delivered instantly, multiple notifications may be coalesced into a single notification.
+             This can include the notification with the initial collection.
+             </para>
+             </remarks>
+             <param name="callback">The callback to be invoked with the updated <see cref="T:Realms.RealmResults`1" />.</param>
+             <returns>
+             A subscription token. It must be kept alive for as long as you want to receive change notifications.
+             To stop receiving notifications, call <see cref="M:System.IDisposable.Dispose" />.
+             </returns>
+            </member>
+        <member name="M:Realms.RealmResultsCollectionChanged.ToNotifyCollectionChanged``1(System.Linq.IOrderedQueryable{``0},System.Action{System.Exception})">
+             <summary>
+             Wraps a <see cref="T:Realms.RealmResults`1" /> in an implementation of <see cref="T:System.Collections.Specialized.INotifyCollectionChanged" /> so that it may be used in MVVM databinding.
+             </summary>
+             <param name="results">The <see cref="T:Realms.RealmResults`1" /> to observe for changes.</param>
+             <param name="errorCallback">An error callback that will be invoked if the observing thread raises an error.</param>
+             <returns>An <see cref="!:ObservableCollection&lt;T&gt;" />-like object useful for MVVM databinding.</returns>
+             <seealso cref="!:RealmResults&lt;T&gt;.SubscribeForNotifications(RealmResults&lt;T&gt;.NotificationCallback)" />
+            </member>
+        <member name="M:Realms.RealmResultsCollectionChanged.ToNotifyCollectionChanged``1(System.Linq.IOrderedQueryable{``0},System.Action{System.Exception},System.Boolean)">
+             <summary>
+             Wraps a <see cref="T:Realms.RealmResults`1" /> in an implementation of <see cref="T:System.Collections.Specialized.INotifyCollectionChanged" /> so that it may be used in MVVM databinding.
+             </summary>
+             <param name="results">The <see cref="T:Realms.RealmResults`1" /> to observe for changes.</param>
+             <param name="errorCallback">An error callback that will be invoked if the observing thread raises an error.</param>
+             <param name="coalesceMultipleChangesIntoReset">
+             When a lot of items have been added or removed at once it is more efficient to raise <see cref="E:System.Collections.Specialized.INotifyCollectionChanged.CollectionChanged" /> once
+             with <see cref="F:System.Collections.Specialized.NotifyCollectionChangedAction.Reset" /> instead of multiple times for every single change. Pass <c>true</c> to opt-in to this behavior.
+             </param>
+             <returns>An <see cref="!:ObservableCollection&lt;T&gt;" />-like object useful for MVVM databinding.</returns>
+             <seealso cref="!:RealmResults&lt;T&gt;.SubscribeForNotifications(RealmResults&lt;T&gt;.NotificationCallback)" />
+            </member>
+        <member name="T:Realms.Schema.Property">
+             <summary>
+             Describes a single property of a class stored in a Realm.
+             </summary>
+            </member>
+        <member name="T:Realms.Schema.ObjectSchema">
+             <summary>
+             Public description of a class stored in a Realm, as a collection of managed Property objects.
+             </summary>
+            </member>
+        <member name="P:Realms.Schema.ObjectSchema.Name">
+             <summary>
+             Name of the original class declaration from which the schema was built.
+             </summary>
+            </member>
+        <member name="P:Realms.Schema.ObjectSchema.Count">
+             <summary>
+             Number of properties in the schema, which is the persistent properties from the original class.
+             </summary>
+            </member>
+        <member name="M:Realms.Schema.ObjectSchema.TryFindProperty(System.String,Realms.Schema.Property@)">
+             <summary>
+             Looks for a Property by Name. Failure to find means it is not regarded as a property to persist in a Realm.
+             </summary>
+             <returns><c>true</c>, if a property was found matching Name, <c>false</c> otherwise.</returns>
+             <param name="name">Name of the Property to match exactly.</param>
+             <param name="property">Property returned only if found matching Name.</param>
+            </member>
+        <member name="M:Realms.Schema.ObjectSchema.GetEnumerator">
+             <summary>
+             Property enumerator factory for an iterator to be called explicitly or used in a foreach loop.
+             </summary>
+             <returns>An enumerator over the list of Property instances described in the schema.</returns>
+            </member>
+        <member name="M:Realms.Schema.ObjectSchema.FromType(System.Type)">
+             <summary>
+             Creates a schema describing a RealmObject subclass in terms of its persisted members.
+             </summary>
+             <exception cref="T:System.ArgumentException">Thrown if no class Type is provided or if it doesn't descend directly from RealmObject.</exception>
+             <returns>An ObjectSchema describing the specified Type.</returns>
+             <param name="type">Type of a RealmObject descendant for which you want a schema.</param>
+            </member>
+        <member name="T:Realms.Schema.ObjectSchema.Builder">
+             <summary>
+             Helper class used to construct an ObjectSchema.
+             </summary>
+            </member>
+        <member name="P:Realms.Schema.ObjectSchema.Builder.Name">
+             <summary>
+             Name of the class to be returned in the ObjectSchema.
+             </summary>
+            </member>
+        <member name="M:Realms.Schema.ObjectSchema.Builder.Build">
+             <summary>
+             Build the ObjectSchema to include all Property instances added to this Builder.
+             </summary>
+             <exception cref="T:System.InvalidOperationException">Thrown if the Builder is empty.</exception>
+             <returns>A completed ObjectSchema, suitable for composing a RealmSchema that will be used to create a new Realm.</returns>
+            </member>
+        <member name="T:Realms.RealmSchema">
+             <summary>
+             Describes the complete set of classes which may be stored in a Realm, either from assembly declarations or, dynamically, by evaluating a Realm from disk.
+             </summary>
+             <remarks>
+             By default this will be all the RealmObjects in all your assemblies unless you restrict with RealmConfiguration.ObjectClasses. 
+             Just because a given class <em>may</em> be stored in a Realm doesn't imply much overhead. There will be a small amount of metadata 
+             but objects only start to take up space once written. 
+             </remarks>
+            </member>
+        <member name="P:Realms.RealmSchema.Count">
+             <summary>
+             Number of known classes in the schema.
+             </summary>
+             <value>Count of known classes specified in this Schema.</value>
+            </member>
+        <member name="M:Realms.RealmSchema.Find(System.String)">
+             <summary>
+             Finds the definition of a class in this schema.
+             </summary>
+             <param name="name">A valid class name which may be in this schema.</param>
+             <exception cref="!:ArgumentException">Thrown if a name is not supplied.</exception>
+             <returns>An object or null to indicate not found.</returns>
+            </member>
+        <member name="M:Realms.RealmSchema.GetEnumerator">
+             <summary>
+             Standard method from interface IEnumerable allows the RealmSchema to be used in a <c>foreach</c> or <c>ToList()</c>.
+             </summary>
+             <returns>An IEnumerator which will iterate through ObjectSchema declarations in this RealmSchema.</returns>
+            </member>
+        <member name="T:Realms.RealmSchema.Builder">
+             <summary>
+             Helper class used to construct a RealmSchema.
+             </summary>
+            </member>
+        <member name="M:Realms.RealmSchema.Builder.Build">
+             <summary>
+             Build the RealmSchema to include all ObjectSchema added to this Builder.
+             </summary>
+             <exception cref="!:InvalidOperationException">Thrown if the Builder is empty.</exception>
+             <returns>A completed RealmSchema, suitable for creating a new Realm.</returns>
+            </member>
+    </members>
+</doc>
