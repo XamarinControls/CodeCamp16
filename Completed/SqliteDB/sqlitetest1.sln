@@ -1,0 +1,57 @@
+
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 2012
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "sqlitetest1", "sqlitetest1\sqlitetest1.csproj", "{9B02C979-82AE-461E-A2EA-E84B4832F2D1}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "sqlitetest1.iOS", "iOS\sqlitetest1.iOS.csproj", "{41CEE99B-B9A3-432D-82B3-DCB480818CBC}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "sqlitetest1.Droid", "Droid\sqlitetest1.Droid.csproj", "{72B3C46C-E42A-4A7B-925E-4E62A0EA7CB6}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+		Debug|iPhoneSimulator = Debug|iPhoneSimulator
+		Release|iPhone = Release|iPhone
+		Release|iPhoneSimulator = Release|iPhoneSimulator
+		Debug|iPhone = Debug|iPhone
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{9B02C979-82AE-461E-A2EA-E84B4832F2D1}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{9B02C979-82AE-461E-A2EA-E84B4832F2D1}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{9B02C979-82AE-461E-A2EA-E84B4832F2D1}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{9B02C979-82AE-461E-A2EA-E84B4832F2D1}.Release|Any CPU.Build.0 = Release|Any CPU
+		{9B02C979-82AE-461E-A2EA-E84B4832F2D1}.Debug|iPhoneSimulator.ActiveCfg = Debug|Any CPU
+		{9B02C979-82AE-461E-A2EA-E84B4832F2D1}.Debug|iPhoneSimulator.Build.0 = Debug|Any CPU
+		{9B02C979-82AE-461E-A2EA-E84B4832F2D1}.Release|iPhone.ActiveCfg = Release|Any CPU
+		{9B02C979-82AE-461E-A2EA-E84B4832F2D1}.Release|iPhone.Build.0 = Release|Any CPU
+		{9B02C979-82AE-461E-A2EA-E84B4832F2D1}.Release|iPhoneSimulator.ActiveCfg = Release|Any CPU
+		{9B02C979-82AE-461E-A2EA-E84B4832F2D1}.Release|iPhoneSimulator.Build.0 = Release|Any CPU
+		{9B02C979-82AE-461E-A2EA-E84B4832F2D1}.Debug|iPhone.ActiveCfg = Debug|Any CPU
+		{9B02C979-82AE-461E-A2EA-E84B4832F2D1}.Debug|iPhone.Build.0 = Debug|Any CPU
+		{41CEE99B-B9A3-432D-82B3-DCB480818CBC}.Debug|Any CPU.ActiveCfg = Debug|iPhoneSimulator
+		{41CEE99B-B9A3-432D-82B3-DCB480818CBC}.Debug|Any CPU.Build.0 = Debug|iPhoneSimulator
+		{41CEE99B-B9A3-432D-82B3-DCB480818CBC}.Release|Any CPU.ActiveCfg = Release|iPhone
+		{41CEE99B-B9A3-432D-82B3-DCB480818CBC}.Release|Any CPU.Build.0 = Release|iPhone
+		{41CEE99B-B9A3-432D-82B3-DCB480818CBC}.Debug|iPhoneSimulator.ActiveCfg = Debug|iPhoneSimulator
+		{41CEE99B-B9A3-432D-82B3-DCB480818CBC}.Debug|iPhoneSimulator.Build.0 = Debug|iPhoneSimulator
+		{41CEE99B-B9A3-432D-82B3-DCB480818CBC}.Release|iPhone.ActiveCfg = Release|iPhone
+		{41CEE99B-B9A3-432D-82B3-DCB480818CBC}.Release|iPhone.Build.0 = Release|iPhone
+		{41CEE99B-B9A3-432D-82B3-DCB480818CBC}.Release|iPhoneSimulator.ActiveCfg = Release|iPhoneSimulator
+		{41CEE99B-B9A3-432D-82B3-DCB480818CBC}.Release|iPhoneSimulator.Build.0 = Release|iPhoneSimulator
+		{41CEE99B-B9A3-432D-82B3-DCB480818CBC}.Debug|iPhone.ActiveCfg = Debug|iPhone
+		{41CEE99B-B9A3-432D-82B3-DCB480818CBC}.Debug|iPhone.Build.0 = Debug|iPhone
+		{72B3C46C-E42A-4A7B-925E-4E62A0EA7CB6}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{72B3C46C-E42A-4A7B-925E-4E62A0EA7CB6}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{72B3C46C-E42A-4A7B-925E-4E62A0EA7CB6}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{72B3C46C-E42A-4A7B-925E-4E62A0EA7CB6}.Release|Any CPU.Build.0 = Release|Any CPU
+		{72B3C46C-E42A-4A7B-925E-4E62A0EA7CB6}.Debug|iPhoneSimulator.ActiveCfg = Debug|Any CPU
+		{72B3C46C-E42A-4A7B-925E-4E62A0EA7CB6}.Debug|iPhoneSimulator.Build.0 = Debug|Any CPU
+		{72B3C46C-E42A-4A7B-925E-4E62A0EA7CB6}.Release|iPhone.ActiveCfg = Release|Any CPU
+		{72B3C46C-E42A-4A7B-925E-4E62A0EA7CB6}.Release|iPhone.Build.0 = Release|Any CPU
+		{72B3C46C-E42A-4A7B-925E-4E62A0EA7CB6}.Release|iPhoneSimulator.ActiveCfg = Release|Any CPU
+		{72B3C46C-E42A-4A7B-925E-4E62A0EA7CB6}.Release|iPhoneSimulator.Build.0 = Release|Any CPU
+		{72B3C46C-E42A-4A7B-925E-4E62A0EA7CB6}.Debug|iPhone.ActiveCfg = Debug|Any CPU
+		{72B3C46C-E42A-4A7B-925E-4E62A0EA7CB6}.Debug|iPhone.Build.0 = Debug|Any CPU
+	EndGlobalSection
+EndGlobal

@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms" 
+		xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml" 
+		x:Class="sqlitetest1.DBListPage">
+	<ContentPage.Content>
+		<ListView 
+				x:Name="list1"
+				 HasUnevenRows="false"
+				RowHeight="100">
+
+		<ListView.ItemTemplate>
+			<DataTemplate>
+				<ViewCell>
+					<ViewCell.View>
+						<StackLayout
+							HeightRequest="100"
+							HorizontalOptions="FillAndExpand"
+							VerticalOptions="FillAndExpand">
+							<Label Text="{Binding ID}"></Label>
+							<Label Text="{Binding MobileID}"></Label>
+							<Label Text="{Binding PeopleID}"></Label>
+							<Label Text="{Binding UserID}"></Label>
+							<Label Text="{Binding LocalID}"></Label>
+						</StackLayout>
+					</ViewCell.View>
+				</ViewCell>
+			</DataTemplate>
+		</ListView.ItemTemplate>
+		</ListView>
+	</ContentPage.Content>
+</ContentPage>

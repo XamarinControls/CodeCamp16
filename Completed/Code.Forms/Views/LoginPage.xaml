@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms" 
+		xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml" 
+		x:Class="CodeCamp2016.Forms.Views.LoginPage"
+		Title="Login">
+	<ContentPage.Content>
+	<StackLayout>
+		<Label Text="UserName" FontAttributes="Bold"></Label>
+		<Entry Text="{Binding Path=UserName}" Keyboard="Text" Placeholder="Enter UserName" />
+		<Label Text="Password" FontAttributes="Bold"></Label>
+		<Entry Text="{Binding Path=Password}" IsPassword="true" Placeholder="Enter Password" />
+		<StackLayout 
+			HorizontalOptions="StartAndExpand"
+			VerticalOptions="Start"
+			Orientation="Horizontal">
+			<Label Text="Save Password" 
+					FontAttributes="Bold" 
+					VerticalTextAlignment="Center"></Label>
+			<Switch IsToggled="{Binding IsSavedPassword}"></Switch>
+		</StackLayout>
+		<Button Text="Login" Command="{Binding LoginCommand}"></Button>
+		<Button Text="Register" Command="{Binding RegisterCommand}"></Button>
+	<StackLayout.Padding>
+		<OnPlatform x:TypeArguments="Thickness" iOS="10,20,10,0"></OnPlatform>
+	</StackLayout.Padding>
+	</StackLayout>
+	</ContentPage.Content>
+</ContentPage>

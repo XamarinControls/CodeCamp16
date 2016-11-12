@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms" 
+		xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml" 
+		x:Class="CodeCamp2016.Forms.Views.ItemsPage"
+		x:Name="ItemsPage"
+		IsBusy="{Binding IsBusy}" Title="For Sale">
+	<ContentPage.Content>
+		<ListView
+				HasUnevenRows="true"
+				ItemsSource="{Binding Items}">
+
+		<ListView.ItemTemplate>
+			<DataTemplate>
+				<ViewCell>
+					<ViewCell.View>
+							<StackLayout
+			                    HorizontalOptions="FillAndExpand"
+			                      VerticalOptions="FillAndExpand"
+			                      Padding="4, 2, 4, 2">     	
+							     <Grid
+							      	BackgroundColor="Transparent"
+							        RowSpacing="0"
+									Margin="0,5,0,0"
+									HorizontalOptions="FillAndExpand"	
+							       	VerticalOptions="FillAndExpand">
+							        <Grid.ColumnDefinitions>
+							           <ColumnDefinition Width="*"></ColumnDefinition>
+										<ColumnDefinition Width="90"></ColumnDefinition>
+							        </Grid.ColumnDefinitions>
+							        <Label Text="{Binding ItemDesc}" 
+											VerticalTextAlignment="Center"
+										Grid.Row="0" Grid.Column="0"></Label>
+									<StackLayout 
+											Grid.Row="0" Grid.Column="1"
+											WidthRequest="90"
+											VerticalOptions="Center"
+											Orientation="Horizontal">
+										<Button x:Name="Order" 
+												CommandParameter="{Binding ID}"
+												Command="{Binding Path=BindingContext.OrderItemCommand, Source={x:Reference Name=ItemsPage}}"
+											Text="Order" BackgroundColor="Green" TextColor="White"></Button>
+									</StackLayout>
+							  </Grid>	
+							</StackLayout>
+					</ViewCell.View>
+				</ViewCell>
+			</DataTemplate>
+		</ListView.ItemTemplate>
+		</ListView>
+	</ContentPage.Content>
+</ContentPage>
